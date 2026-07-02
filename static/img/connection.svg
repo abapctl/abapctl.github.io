@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="360" viewBox="0 0 880 360" role="img" aria-label="abapctl connects over HTTPS to a SAP system by two paths: the ADT REST API under /sap/bc/adt for design-time work (objects, checks, transports), and the OData runtime under /sap/opu/odata for read-only queries of published services. Connection details come from .abapctl.json.">
+  <defs>
+    <style>
+      .sans { font-family: 'Inter', system-ui, 'Segoe UI', sans-serif; }
+      .mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+    </style>
+    <marker id="carrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#94a3b8"/>
+    </marker>
+  </defs>
+
+  <rect width="880" height="360" rx="16" fill="#0b1220"/>
+
+  <!-- abapctl box (left) -->
+  <g>
+    <rect x="40" y="96" width="176" height="96" rx="12" fill="#111a2b" stroke="rgba(96,165,250,0.5)" stroke-width="1.5"/>
+    <text x="128" y="138" text-anchor="middle" class="mono" font-size="20" font-weight="700" fill="#e2e8f0">abapctl</text>
+    <text x="128" y="162" text-anchor="middle" class="sans" font-size="12" fill="#94a3b8">the CLI, on your</text>
+    <text x="128" y="178" text-anchor="middle" class="sans" font-size="12" fill="#94a3b8">machine</text>
+  </g>
+
+  <!-- config file under abapctl -->
+  <g>
+    <rect x="40" y="232" width="176" height="64" rx="10" fill="#0b1220" stroke="rgba(255,255,255,0.12)"/>
+    <text x="128" y="260" text-anchor="middle" class="mono" font-size="13" fill="#cbd5e1">.abapctl.json</text>
+    <text x="128" y="280" text-anchor="middle" class="sans" font-size="12" fill="#94a3b8">connection, defaults</text>
+  </g>
+  <line x1="128" y1="232" x2="128" y2="192" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#carrow)"/>
+
+  <!-- two path boxes (middle) -->
+  <!-- design-time / ADT -->
+  <g>
+    <rect x="300" y="52" width="308" height="88" rx="11" fill="rgba(37,99,235,0.12)" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="320" y="80" class="mono" font-size="13" fill="#60a5fa">/sap/bc/adt/…</text>
+    <text x="320" y="104" class="sans" font-size="15" font-weight="700" fill="#f8fafc">ADT REST · design-time</text>
+    <text x="320" y="126" class="sans" font-size="13" fill="#94a3b8">objects, checks, transports (read + write)</text>
+  </g>
+
+  <!-- runtime / OData -->
+  <g>
+    <rect x="300" y="156" width="308" height="88" rx="11" fill="rgba(74,222,128,0.08)" stroke="rgba(74,222,128,0.45)" stroke-width="1.5"/>
+    <text x="320" y="184" class="mono" font-size="13" fill="#4ade80">/sap/opu/odata/…</text>
+    <text x="320" y="208" class="sans" font-size="15" font-weight="700" fill="#f8fafc">OData runtime</text>
+    <text x="320" y="230" class="sans" font-size="13" fill="#94a3b8">query published services (read-only)</text>
+  </g>
+
+  <!-- arrows abapctl -> path boxes: both fan from abapctl's right-edge
+       center (216,144) to each box's left-edge center -->
+  <line x1="220" y1="144" x2="296" y2="96" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#carrow)"/>
+  <line x1="220" y1="144" x2="296" y2="200" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#carrow)"/>
+  <text x="238" y="150" class="mono" font-size="12" fill="#94a3b8">HTTPS</text>
+
+  <!-- arrows path boxes -> SAP: both converge on SAP's left-edge center (672,172) -->
+  <line x1="608" y1="96" x2="668" y2="172" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#carrow)"/>
+  <line x1="608" y1="200" x2="668" y2="172" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#carrow)"/>
+
+  <!-- SAP system (right) -->
+  <g>
+    <rect x="672" y="112" width="168" height="120" rx="12" fill="#111a2b" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+    <text x="756" y="156" text-anchor="middle" class="mono" font-size="13" letter-spacing="1" fill="#4ade80">SAP SYSTEM</text>
+    <text x="756" y="182" text-anchor="middle" class="sans" font-size="13" fill="#cbd5e1">ECC or</text>
+    <text x="756" y="200" text-anchor="middle" class="sans" font-size="13" fill="#cbd5e1">S/4HANA</text>
+  </g>
+</svg>

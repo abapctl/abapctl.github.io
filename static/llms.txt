@@ -1,0 +1,62 @@
+# abapctl
+
+> abapctl is a standalone CLI for SAP ABAP Development Tools (ADT) and the OData runtime. It gives terminals, scripts, and AI agents direct, headless, JSON-first access to a live SAP system over HTTPS: read and navigate ABAP, write it through the lock/write/unlock/activate cycle, run ATC and ABAP Unit checks, manage transports, assess and remediate toward Clean Core, and query published OData services. It is a deterministic primitive; an AI agent supplies the reasoning on top.
+
+Notes for readers:
+- For the entire documentation in one file, see https://abapctl.github.io/llms-full.txt.
+- abapctl is distributed as open binaries (not open source) under MIT-0. Get it from the GitHub releases repo below.
+- Every command reports three safety booleans in `tools list --json` (`readOnly`, `destructive`, `idempotent`), supports `--json`, and previews writes with `--dry-run`.
+- Works with any ADT-enabled SAP system (ECC or S/4HANA). Some capabilities depend on the backend release.
+
+## Getting started
+
+- [Introduction](https://abapctl.github.io/docs/): what abapctl is and how it reaches SAP (ADT design-time and OData runtime).
+- [Overview](https://abapctl.github.io/docs/getting-started/overview): the two-layer model (deterministic primitive plus an agent that reasons) and who it is for.
+- [Install](https://abapctl.github.io/docs/getting-started/install): download the binary for Linux, macOS, or Windows.
+- [Configure](https://abapctl.github.io/docs/getting-started/configure): connections, ports, authentication, and password sources.
+- [Quickstart](https://abapctl.github.io/docs/getting-started/quickstart): first commands against a system.
+
+## Core concepts
+
+- [Architecture](https://abapctl.github.io/docs/concepts/architecture): the CLI, workflow, capability, and SAP-client layers.
+- [Connections & sessions](https://abapctl.github.io/docs/concepts/connections-sessions): profiles, precedence, and session reuse.
+- [Lock, write, activate](https://abapctl.github.io/docs/concepts/lock-write-activate): the write lifecycle and the lock-finally guard.
+- [Capabilities & gating](https://abapctl.github.io/docs/concepts/capabilities): how abapctl adapts to what a backend supports.
+- [JSON & safety](https://abapctl.github.io/docs/concepts/json-and-safety): the output contract, safety flags, exit codes, and error codes.
+
+## Guides
+
+- [Read and navigate](https://abapctl.github.io/docs/guides/read-navigate): source download, search, definitions, references, completion.
+- [Edit source](https://abapctl.github.io/docs/guides/edit-source): the lock/write/unlock/activate cycle and batch activation.
+- [Quality checks](https://abapctl.github.io/docs/guides/quality-checks): syntax, ATC, ABAP Unit, CDS-DDL, and the ATC quick-fix loop.
+- [Transports](https://abapctl.github.io/docs/guides/transports): create, inspect, release, and delete transport requests.
+- [Workspaces](https://abapctl.github.io/docs/guides/workspaces): sync a package to local files, like git clone for SAP.
+- [Object creation](https://abapctl.github.io/docs/guides/object-creation): the create command family and `--source` inputs.
+- [DDIC and CDS](https://abapctl.github.io/docs/guides/ddic-cds): DDIC deep metadata, CDS intelligence, and data preview.
+- [Services and OData](https://abapctl.github.io/docs/guides/services-odata): service bindings and consuming OData runtime services.
+- [Behavior definitions and RAP](https://abapctl.github.io/docs/guides/bdef-rap): BDEF read/create, batch activation, and ENHO.
+- [Clean Core](https://abapctl.github.io/docs/guides/clean-core): the assess, prep, fix, apply remediation loop.
+- [Working with AI agents](https://abapctl.github.io/docs/guides/ai-agents): the `tools list --json` contract and the propose/approve/commit loop.
+
+## Command reference
+
+- [Command reference](https://abapctl.github.io/docs/command-reference): every command grouped by family, with safety badges (READ, IDEMP, DESTR, WRITE) generated from `tools list --json`.
+
+## Skills and agents
+
+- [Skills & Agents](https://abapctl.github.io/docs/skills-agents): how agents drive abapctl and how to install skills.
+- [The sap-abap skill](https://abapctl.github.io/docs/skills-agents/sap-abap-skill): the decision-aid skill for driving abapctl.
+- [Clean Core skills](https://abapctl.github.io/docs/skills-agents/clean-core-skills): the four skills and the remediator subagent.
+
+## Agentic use cases
+
+- [Agentic use cases](https://abapctl.github.io/docs/use-cases): three worked examples of agent-driven SAP work.
+- [S/4HANA readiness and quick fixes](https://abapctl.github.io/docs/use-cases/readiness): find blockers and apply SAP's deterministic quick fixes.
+- [Clean Core assessment and remediation](https://abapctl.github.io/docs/use-cases/clean-core): assess a package and remediate with the agent.
+- [Test-driven development](https://abapctl.github.io/docs/use-cases/tdd): build new ABAP test-first with the agent.
+- [Going further](https://abapctl.github.io/docs/use-cases/going-further): more agentic workflows to adapt.
+
+## Source and releases
+
+- [Binaries and releases](https://github.com/aws-for-sap/Automate-SAP-development-workflows-using-ABAP-CTL): download abapctl (open distribution, MIT-0).
+- [Clean Core kit and skills](https://github.com/aws-for-sap/agentic-ai-guidance-for-SAP-use-cases/tree/main/clean-core): the sap-abap and clean-core skills plus the remediator subagent.

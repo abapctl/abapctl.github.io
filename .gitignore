@@ -1,0 +1,26 @@
+# Dependencies
+/node_modules
+
+# Production build
+/build
+
+# Generated files
+.docusaurus
+.cache-loader
+
+# Misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# abapctl runtime artifacts (logs, session) if the CLI is run in this dir
+.abapctl/
+
+# Generated at build time by scripts/gen-llms-full.mjs
+static/llms-full.txt

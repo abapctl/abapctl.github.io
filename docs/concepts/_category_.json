@@ -1,0 +1,8 @@
+{
+  "label": "Core Concepts",
+  "position": 2,
+  "link": {
+    "type": "generated-index",
+    "description": "The mental model behind abapctl: how it talks to SAP, how writes work, what each system supports, and the contract agents rely on."
+  }
+}

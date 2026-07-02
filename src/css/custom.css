@@ -1,0 +1,722 @@
+/**
+ * abapctl site theme: "technical slate + blue".
+ *
+ * The identity is a serious developer-tools palette: a cool slate/ink ground,
+ * a single confident blue accent for primary actions and links, and a terminal
+ * green used sparingly for "it ran" affordances. Type pairs Inter (UI + body)
+ * with JetBrains Mono (commands, code, the terminal motif). The recurring
+ * visual is the terminal prompt: abapctl is a CLI first.
+ */
+
+:root {
+  /* Accent blue (primary) */
+  --ifm-color-primary: #2563eb;
+  --ifm-color-primary-dark: #1d4ed8;
+  --ifm-color-primary-darker: #1e40af;
+  --ifm-color-primary-darkest: #1e3a8a;
+  --ifm-color-primary-light: #3b82f6;
+  --ifm-color-primary-lighter: #60a5fa;
+  --ifm-color-primary-lightest: #93c5fd;
+
+  /* Tokens */
+  --ac-blue: #2563eb;
+  --ac-blue-deep: #1e3a8a;
+  --ac-ink: #0f172a;        /* slate-900: terminal ground, hero */
+  --ac-ink-2: #1e293b;      /* slate-800 */
+  --ac-slate: #475569;      /* slate-600: secondary text */
+  --ac-mist: #f1f5f9;       /* slate-100: section banding */
+  --ac-paper: #ffffff;
+  --ac-line: rgba(15, 23, 42, 0.1);
+  --ac-green: #16a34a;      /* "it ran" affordance */
+  --ac-amber: #d97706;      /* DESTR / caution */
+  --ac-term-green: #4ade80; /* prompt glyph on dark */
+
+  --ifm-background-color: var(--ac-paper);
+  --ifm-background-surface-color: #ffffff;
+  --ifm-font-color-base: #1e293b;
+
+  --ifm-font-family-base: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  /* Headings are set in the mono display face: abapctl is a CLI, so the
+     terminal typeface carries the personality. Body stays Inter for reading. */
+  --ifm-heading-font-family: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  --ifm-font-family-monospace: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  --ifm-heading-font-weight: 700;
+  --ifm-h1-font-size: 2.4rem;
+  --ifm-code-font-size: 90%;
+  --ifm-code-padding-vertical: 0.1rem;
+  --ifm-code-padding-horizontal: 0.35rem;
+
+  --ifm-navbar-background-color: rgba(255, 255, 255, 0.85);
+  --ifm-navbar-shadow: inset 0 -1px 0 var(--ac-line);
+  --docusaurus-highlighted-code-line-bg: rgba(37, 99, 235, 0.1);
+}
+
+[data-theme='dark'] {
+  --ifm-color-primary: #60a5fa;
+  --ifm-color-primary-dark: #3b82f6;
+  --ifm-color-primary-darker: #2563eb;
+  --ifm-color-primary-darkest: #1d4ed8;
+  --ifm-color-primary-light: #93c5fd;
+  --ifm-color-primary-lighter: #bfdbfe;
+  --ifm-color-primary-lightest: #dbeafe;
+
+  --ac-mist: #131c2e;
+  --ac-paper: #0b1220;
+  --ac-line: rgba(255, 255, 255, 0.1);
+
+  --ifm-background-color: #0b1220;
+  --ifm-background-surface-color: #111a2b;
+  --ifm-font-color-base: #e2e8f0;
+  --ifm-navbar-background-color: rgba(11, 18, 32, 0.85);
+  --docusaurus-highlighted-code-line-bg: rgba(96, 165, 250, 0.14);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Mono headings: tighten tracking so the monospace display reads as
+   deliberate, not like raw terminal output. */
+h1,
+h2,
+h3,
+h4 {
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+/* In long-form docs articles, mono at 700 is heavy. Drop to 600 and give
+   in-article headings a little more breathing room above them. */
+.markdown h1,
+.markdown h2,
+.markdown h3,
+.markdown h4 {
+  font-weight: 600;
+}
+
+.markdown h2 {
+  margin-top: 2.2rem;
+}
+
+@media (min-width: 997px) {
+  .navbar {
+    backdrop-filter: saturate(160%) blur(12px);
+  }
+}
+
+.navbar__title {
+  font-family: var(--ifm-font-family-monospace);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  font-size: 1.2rem;
+}
+
+/* ----------------------------------------------------------------------- */
+/* Shared landing primitives                                               */
+/* ----------------------------------------------------------------------- */
+
+/* Section eyebrows read as code comments (the content passes a "// ..."
+   string), so no uppercasing or wide tracking. */
+.ac-eyebrow {
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--ifm-color-primary);
+  margin: 0 0 0.9rem;
+}
+
+.ac-section {
+  padding: 5rem 0;
+}
+
+/* Both content sections sit on the same light field (dark / light / dark
+   page rhythm). A hairline rule and reduced top padding separate them
+   without a second background color. */
+.ac-section--divided {
+  padding-top: 1rem;
+}
+
+.ac-section--divided .container::before {
+  content: "";
+  display: block;
+  height: 1px;
+  background: var(--ac-line);
+  margin-bottom: 4rem;
+}
+
+.ac-section__head {
+  max-width: 720px;
+  margin: 0 0 2.5rem;
+}
+
+.ac-section__head h2 {
+  font-size: 2rem;
+  margin: 0 0 0.75rem;
+}
+
+.ac-section__head p {
+  font-size: 1.1rem;
+  color: var(--ac-slate);
+  margin: 0;
+}
+
+[data-theme='dark'] .ac-section__head p {
+  color: #94a3b8;
+}
+
+/* ----------------------------------------------------------------------- */
+/* Hero                                                                    */
+/* ----------------------------------------------------------------------- */
+
+.ac-hero {
+  background:
+    radial-gradient(1200px 500px at 80% -10%, rgba(37, 99, 235, 0.18), transparent 60%),
+    linear-gradient(180deg, var(--ac-ink), var(--ac-ink-2));
+  color: #e2e8f0;
+  padding: 5.5rem 0 5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.ac-hero__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+@media (max-width: 996px) {
+  .ac-hero__inner {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+}
+
+/* Status pill: a small "connected" chip, echoing a CLI status line. */
+.ac-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.78rem;
+  color: #cbd5e1;
+  background: rgba(148, 163, 184, 0.12);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 999px;
+  padding: 0.3rem 0.8rem;
+  margin: 0 0 1.5rem;
+}
+
+.ac-status__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--ac-term-green);
+  box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.18);
+}
+
+.ac-hero__title {
+  font-size: 3.05rem;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  margin: 0 0 1.4rem;
+  color: #f8fafc;
+}
+
+.ac-hero__lead {
+  font-size: 1.18rem;
+  line-height: 1.6;
+  color: #cbd5e1;
+  margin: 0 0 1.75rem;
+  max-width: 36ch;
+}
+
+/* The hero is always dark, in both color modes, so inline code needs its own
+   light-on-dark treatment. The theme default (light bg, dark text, faint
+   border) is illegible here, and its colors flip in light mode. */
+.ac-hero code,
+.ac-stack__layer--cli code {
+  background: rgba(148, 163, 184, 0.16);
+  color: #e2e8f0;
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  border-radius: 5px;
+  padding: 0.05rem 0.35rem;
+}
+
+.ac-hero__cta {
+  display: flex;
+  gap: 0.9rem;
+  flex-wrap: wrap;
+}
+
+.ac-btn:focus-visible,
+.ac-card:focus-visible {
+  outline: 3px solid #3b82f6;
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+.ac-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  font-size: 0.98rem;
+  padding: 0.7rem 1.3rem;
+  border-radius: 8px;
+  transition: transform 0.08s ease, background 0.15s ease, border-color 0.15s ease;
+}
+
+.ac-btn:hover {
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+
+.ac-btn--accent {
+  background: var(--ac-blue);
+  color: #fff;
+}
+
+.ac-btn--accent:hover {
+  background: var(--ifm-color-primary-light);
+  color: #fff;
+}
+
+.ac-btn--ghost {
+  background: transparent;
+  color: #e2e8f0;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.ac-btn--ghost:hover {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.ac-hero__note {
+  margin: 1.25rem 0 0;
+  font-size: 0.85rem;
+  color: #94a3b8;
+  font-family: var(--ifm-font-family-monospace);
+}
+
+.ac-hero__noteLink {
+  color: #cbd5e1;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(203, 213, 225, 0.4);
+}
+
+.ac-hero__noteLink:hover {
+  color: #fff;
+  text-decoration-color: #fff;
+}
+
+/* ----------------------------------------------------------------------- */
+/* Intent panel (hero signature)                                           */
+/* ----------------------------------------------------------------------- */
+/* The two-layer model made concrete: plain-language intent on top, the
+   deterministic commands it resolves into below, then the gated result.   */
+
+.ac-panel {
+  background: #0a0f1c;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+  font-family: var(--ifm-font-family-monospace);
+}
+
+.ac-panel__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.7rem 1rem;
+  background: #131a2b;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 0.76rem;
+}
+
+.ac-panel__name {
+  color: #e2e8f0;
+  font-weight: 700;
+}
+
+.ac-panel__conn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #7c8aa0;
+}
+
+.ac-panel__live {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--ac-term-green);
+  box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.16);
+}
+
+.ac-panel__body {
+  padding: 1.3rem 1.3rem 1.4rem;
+}
+
+.ac-panel__intent {
+  font-size: 1.02rem;
+  color: #f8fafc;
+  margin: 0 0 1.3rem;
+  line-height: 1.45;
+}
+
+.ac-panel__caret {
+  color: var(--ac-term-green);
+  margin-right: 0.5rem;
+}
+
+.ac-panel__label {
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #64748b;
+  margin: 0 0 0.6rem;
+}
+
+.ac-panel__cmds {
+  list-style: none;
+  margin: 0 0 1.2rem;
+  padding: 0;
+  border-left: 2px solid rgba(96, 165, 250, 0.35);
+}
+
+.ac-panel__cmds li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.3rem 0 0.3rem 0.9rem;
+  font-size: 0.86rem;
+}
+
+.ac-panel__cmd { color: #cbd5e1; }
+.ac-panel__flag { color: #60a5fa; }
+
+.ac-panel__result {
+  margin: 0;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 0.84rem;
+  color: #94a3b8;
+}
+
+.ac-panel__ok {
+  color: var(--ac-term-green);
+  margin-right: 0.4rem;
+}
+
+/* Inline safety pills inside the panel (dark ground). */
+.ac-ipill {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 0.05rem 0.35rem;
+  border-radius: 4px;
+}
+
+.ac-ipill--read { background: rgba(74, 222, 128, 0.16); color: #86efac; }
+.ac-ipill--destr { background: rgba(251, 191, 36, 0.18); color: #fcd34d; }
+
+/* ----------------------------------------------------------------------- */
+/* Feature grid                                                            */
+/* ----------------------------------------------------------------------- */
+
+.ac-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+@media (max-width: 996px) {
+  .ac-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 600px) {
+  .ac-grid { grid-template-columns: 1fr; }
+}
+
+.ac-card {
+  display: block;
+  background: var(--ifm-background-surface-color);
+  border: 1px solid var(--ac-line);
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: transform 0.1s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+  color: inherit;
+}
+
+.ac-card:hover {
+  text-decoration: none;
+  color: inherit;
+  transform: translateY(-2px);
+  border-color: var(--ifm-color-primary);
+  box-shadow: 0 12px 28px rgba(37, 99, 235, 0.1);
+}
+
+.ac-card__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin-bottom: 1rem;
+  border-radius: 10px;
+  color: var(--ifm-color-primary);
+  background: rgba(37, 99, 235, 0.1);
+}
+
+[data-theme='dark'] .ac-card__icon {
+  background: rgba(96, 165, 250, 0.14);
+}
+
+.ac-card h3 {
+  font-size: 1.05rem;
+  margin: 0 0 0.3rem;
+}
+
+/* The commands this card maps to, as a mono tag under the title. */
+.ac-card__cmd {
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.76rem;
+  color: var(--ifm-color-primary);
+  margin: 0 0 0.7rem;
+}
+
+.ac-card p {
+  font-size: 0.95rem;
+  color: var(--ac-slate);
+  margin: 0;
+  line-height: 1.55;
+}
+
+.ac-card p.ac-card__cmd {
+  color: var(--ifm-color-primary);
+}
+
+[data-theme='dark'] .ac-card p {
+  color: #94a3b8;
+}
+
+[data-theme='dark'] .ac-card p.ac-card__cmd {
+  color: var(--ifm-color-primary-light);
+}
+
+/* ----------------------------------------------------------------------- */
+/* Two-layer architecture diagram                                          */
+/* ----------------------------------------------------------------------- */
+
+.ac-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.ac-stack__layer {
+  border-radius: 10px;
+  padding: 1.1rem 1.4rem;
+  border: 1px solid var(--ac-line);
+}
+
+.ac-stack__label {
+  margin: 0 0 0.2rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.ac-stack__layer p:not(.ac-stack__label) {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--ac-slate);
+}
+
+[data-theme='dark'] .ac-stack__layer p:not(.ac-stack__label) { color: #94a3b8; }
+
+.ac-stack__layer--agent { background: rgba(37, 99, 235, 0.08); }
+.ac-stack__layer--cli {
+  background: var(--ac-ink);
+  color: #e2e8f0;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+.ac-stack__layer--cli p:not(.ac-stack__label) { color: #94a3b8; }
+.ac-stack__layer--sap { background: var(--ac-mist); }
+
+.ac-stack__arrow {
+  text-align: center;
+  color: var(--ac-slate);
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+/* ----------------------------------------------------------------------- */
+/* Safety-flag pills (used in command reference)                           */
+/* ----------------------------------------------------------------------- */
+
+.ac-pill {
+  display: inline-block;
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 0.1rem 0.45rem;
+  border-radius: 5px;
+  vertical-align: middle;
+}
+
+.ac-pill--read { background: rgba(22, 163, 74, 0.14); color: #15803d; }
+.ac-pill--destr { background: rgba(217, 119, 6, 0.16); color: #b45309; }
+.ac-pill--idemp { background: rgba(37, 99, 235, 0.12); color: #1d4ed8; }
+.ac-pill--write { background: rgba(124, 58, 237, 0.14); color: #6d28d9; }
+
+[data-theme='dark'] .ac-pill--read { color: #4ade80; }
+[data-theme='dark'] .ac-pill--destr { color: #fbbf24; }
+[data-theme='dark'] .ac-pill--idemp { color: #93c5fd; }
+[data-theme='dark'] .ac-pill--write { color: #c4b5fd; }
+
+/* ----------------------------------------------------------------------- */
+/* Closing CTA band                                                        */
+/* ----------------------------------------------------------------------- */
+
+.ac-closing {
+  background:
+    radial-gradient(900px 400px at 50% 130%, rgba(37, 99, 235, 0.2), transparent 60%),
+    linear-gradient(180deg, var(--ac-ink-2), var(--ac-ink));
+  color: #e2e8f0;
+  padding: 5rem 0 4rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: center;
+}
+
+/* ----------------------------------------------------------------------- */
+/* Footer                                                                  */
+/* ----------------------------------------------------------------------- */
+/* The closing band fades to --ac-ink at its base, so the footer uses the
+   same color and no top border: the two read as one continuous dark zone
+   rather than two stacked bands with a seam. Kept short and quiet. */
+
+html .footer--dark {
+  --ifm-footer-background-color: var(--ac-ink);
+  --ifm-footer-color: #94a3b8;
+  --ifm-footer-link-color: #cbd5e1;
+  background-color: var(--ac-ink);
+  padding: 1.75rem 0;
+}
+
+.footer__bottom {
+  font-size: 0.85rem;
+}
+
+.footer__copyright {
+  color: #94a3b8;
+}
+
+.footer__copyright a {
+  color: #cbd5e1;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(203, 213, 225, 0.4);
+}
+
+.footer__copyright a:hover {
+  color: #fff;
+  text-decoration-color: #fff;
+}
+
+.ac-closing__inner {
+  max-width: 640px;
+}
+
+.ac-closing h2 {
+  font-size: 2rem;
+  color: #f8fafc;
+  margin: 0 0 0.75rem;
+}
+
+.ac-closing p {
+  font-size: 1.1rem;
+  color: #cbd5e1;
+  margin: 0 0 1.75rem;
+}
+
+.ac-closing .ac-hero__cta {
+  justify-content: center;
+}
+
+/* ----------------------------------------------------------------------- */
+/* 404 page                                                                */
+/* ----------------------------------------------------------------------- */
+
+.ac-notfound {
+  background:
+    radial-gradient(900px 400px at 50% -10%, rgba(37, 99, 235, 0.18), transparent 60%),
+    linear-gradient(180deg, var(--ac-ink), var(--ac-ink-2));
+  color: #e2e8f0;
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+}
+
+.ac-notfound__inner {
+  max-width: 620px;
+  text-align: center;
+  padding: 4rem 0;
+}
+
+.ac-notfound__code {
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 4rem;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  color: var(--ac-term-green);
+  margin: 0 0 0.5rem;
+  line-height: 1;
+}
+
+.ac-notfound__title {
+  font-size: 2.2rem;
+  color: #f8fafc;
+  margin: 0 0 1rem;
+}
+
+.ac-notfound__lead {
+  font-size: 1.1rem;
+  color: #cbd5e1;
+  margin: 0 0 2rem;
+}
+
+.ac-notfound__links {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.ac-notfound__note {
+  font-size: 0.9rem;
+  color: #94a3b8;
+}
+
+.ac-notfound__note a {
+  color: #cbd5e1;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.ac-notfound__note a:hover {
+  color: #fff;
+}
